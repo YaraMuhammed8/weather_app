@@ -38,7 +38,7 @@ class EnterCityScreen extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 40,
                   ),
                   const Text(
                     "Enter a city",
@@ -48,7 +48,8 @@ class EnterCityScreen extends StatelessWidget {
                     controller: cityController,
                     suffixIcon: IconButton(
                       onPressed: () {
-                        cityController.text = capitalization(cityController.text);
+                        cityController.text =
+                            capitalization(cityController.text);
                         cubit.resetSearchList();
                         if (cities.contains(cityController.text)) {
                           cubit.setCity(cityController.text);
@@ -70,29 +71,33 @@ class EnterCityScreen extends StatelessWidget {
                     },
                   ),
                   if (cubit.searchResult.isNotEmpty) ...[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10.0, vertical: 5),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: const Color(0xffF3F5F9),
-                            borderRadius: BorderRadius.circular(5)),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: List.generate(
-                              cubit.searchResult.length,
-                              (index) => ListTile(
-                                    onTap: () {
-                                      cityController.text =
-                                          cubit.searchResult[index];
-                                    },
-                                    title: Text(
-                                      cubit.searchResult[index],
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.grey.shade800),
-                                    ),
-                                  )),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10.0, vertical: 5),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: const Color(0xffF3F5F9),
+                              borderRadius: BorderRadius.circular(5)),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: List.generate(
+                                  cubit.searchResult.length,
+                                  (index) => ListTile(
+                                        onTap: () {
+                                          cityController.text =
+                                              cubit.searchResult[index];
+                                        },
+                                        title: Text(
+                                          cubit.searchResult[index],
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.grey.shade800),
+                                        ),
+                                      )),
+                            ),
+                          ),
                         ),
                       ),
                     )
