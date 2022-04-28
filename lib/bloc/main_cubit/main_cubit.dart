@@ -41,7 +41,13 @@ class MainCubit extends Cubit<MainState> {
     DateTime sunsetTime = generateDateTime(weather!.sys.sunset);
 
     if (now.compareTo(sunriseTime) >= 0 && now.compareTo(sunsetTime) < 0) {
-      return "sunny";
+      if (weather!.main.temp < 5) {
+        return "snow";
+      } else if (weather!.main.temp < 20) {
+        return "cold";
+      } else {
+        return "sunny";
+      }
     } else {
       return "night";
     }
