@@ -8,7 +8,7 @@ import 'components/primary_data_row.dart';
 
 class WeatherScreen extends StatelessWidget {
   WeatherScreen({Key? key}) : super(key: key);
-  TextEditingController cityController =TextEditingController();
+  TextEditingController cityController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<MainCubit, MainState>(
@@ -76,7 +76,7 @@ class WeatherScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-            drawer: CustomDrawer(controller:cityController),
+            drawer: CustomDrawer(controller: cityController),
           ),
         );
       },
