@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:weather/models/city_weather.dart';
+import 'package:weather/models/current_weather.dart';
 import 'package:weather/view/components/details_card.dart';
 
 class SecondaryDataRow extends StatelessWidget {
-  CityWeather weather;
+  CurrentWeather weather;
   SecondaryDataRow({required this.weather});
 
   @override

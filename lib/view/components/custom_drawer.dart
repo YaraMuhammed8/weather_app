@@ -50,18 +50,17 @@ class CustomDrawer extends StatelessWidget {
                           ? CustomListViewBuilder(
                               itemsList: cities,
                               onTap: (context, index) {
-                                cubit.setCity(cities[index]);
                                 cubit.resetSearchList();
                                 controller.text ="";
+                                cubit.setCity(cities[index]);
                                 Scaffold.of(context).closeDrawer();
                               },
                               textColor: Colors.white)
                           : CustomListViewBuilder(
                               itemsList: cubit.searchResult,
                               onTap: (context, index) {
-                                cubit.setCity(cubit.searchResult[index]);
-                                cubit.resetSearchList();
                                 controller.text ="";
+                                cubit.setCity(cubit.searchResult[index]);
                                 Scaffold.of(context).closeDrawer();
                               },
                               textColor: Colors.white))

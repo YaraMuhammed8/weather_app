@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:weather/components/generate_date_time.dart';
-import 'package:weather/models/city_weather.dart';
+import 'package:weather/models/current_weather.dart';
 import 'package:weather/services/local/cache_helper.dart';
 import 'package:weather/src/constants.dart';
 
@@ -13,7 +13,7 @@ class MainCubit extends Cubit<MainState> {
   MainCubit() : super(MainInitial());
   static MainCubit get(context) => BlocProvider.of(context);
   String? selectedCity = CacheHelper.getString(key: "city");
-  CityWeather? weather;
+  CurrentWeather? weather;
   void setCity(String newCity) {
     selectedCity = newCity;
     CacheHelper.putString(key: "city", value: newCity);
@@ -28,10 +28,12 @@ class MainCubit extends Cubit<MainState> {
             url: "data/2.5/weather?",
             query: {"q": selectedCity, "appid": apiKey, "units": "metric"})
         .then((value) {
-      weather = CityWeather.fromJson(value.data);
+      weather = CurrentWeather.fromJson(value.data);
       emit(GetWeatherSuccessful());
+      resetSearchList();
     }).catchError((error) {
       emit(GetWeatherError());
+      resetSearchList();
     });
   }
 

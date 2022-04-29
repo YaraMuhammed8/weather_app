@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather/bloc/main_cubit/main_cubit.dart';
 import 'package:weather/components/capitalization.dart';
 import 'package:weather/src/constants.dart';
+import 'package:weather/view/components/custom_list_view_builder.dart';
 import 'package:weather/view/weather_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../components/navigation_functions.dart';
@@ -38,7 +39,7 @@ class EnterCityScreen extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                   const SizedBox(
-                    height: 40,
+                    height: 20,
                   ),
                   const Text(
                     "Enter a city",
@@ -50,7 +51,6 @@ class EnterCityScreen extends StatelessWidget {
                       onPressed: () {
                         cityController.text =
                             capitalization(cityController.text);
-                        cubit.resetSearchList();
                         if (cities.contains(cityController.text)) {
                           cubit.setCity(cityController.text);
                           navigateAndNotBack(context, WeatherScreen());
@@ -79,24 +79,13 @@ class EnterCityScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                               color: const Color(0xffF3F5F9),
                               borderRadius: BorderRadius.circular(5)),
-                          child: SingleChildScrollView(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: List.generate(
-                                  cubit.searchResult.length,
-                                  (index) => ListTile(
-                                        onTap: () {
-                                          cityController.text =
-                                              cubit.searchResult[index];
-                                        },
-                                        title: Text(
-                                          cubit.searchResult[index],
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              color: Colors.grey.shade800),
-                                        ),
-                                      )),
-                            ),
+                          child: CustomListViewBuilder(
+                            itemsList: cubit.searchResult,
+                            textColor: Colors.grey.shade800,
+                            makeDivider: true,
+                            onTap: (context, index) {
+                              cityController.text = cubit.searchResult[index];
+                            },
                           ),
                         ),
                       ),
