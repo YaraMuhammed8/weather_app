@@ -33,7 +33,7 @@ class PrimaryDataRow extends StatelessWidget {
             child: Column(mainAxisSize: MainAxisSize.min, children: [
           Image.network(
             "http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png",
-            errorBuilder: (context, object, stackTrace) => const SizedBox(),
+            errorBuilder: (context,object, stackTrace) => const SizedBox(),
           ),
           Text(
             weather.weather[0].main,
