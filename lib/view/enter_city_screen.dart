@@ -50,7 +50,7 @@ class EnterCityScreen extends StatelessWidget {
                     suffixIcon: IconButton(
                       onPressed: () {
                         cityController.text =
-                            capitalization(cityController.text);
+                            capitalization(cityController.text).trimRight();
                         if (cities.contains(cityController.text)) {
                           cubit.setCity(cityController.text);
                           navigateAndNotBack(context, WeatherScreen());

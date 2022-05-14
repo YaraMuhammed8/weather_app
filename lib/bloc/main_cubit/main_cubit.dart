@@ -1,5 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:weather/components/generate_date_time.dart';
 import 'package:weather/models/current_weather.dart';
 import 'package:weather/services/local/cache_helper.dart';
@@ -16,7 +17,6 @@ class MainCubit extends Cubit<MainState> {
   CurrentWeather? weather;
   void setCity(String newCity) {
     selectedCity = newCity;
-    CacheHelper.putString(key: "city", value: newCity);
     emit(SetCity());
     getWeatherOfCity();
   }
@@ -30,8 +30,15 @@ class MainCubit extends Cubit<MainState> {
         .then((value) {
       weather = CurrentWeather.fromJson(value.data);
       emit(GetWeatherSuccessful());
+      CacheHelper.putString(key: "city", value: selectedCity!);
       resetSearchList();
     }).catchError((error) {
+      print("error is: $error");
+      CacheHelper.remove(key: "city");
+      Fluttertoast.showToast(
+          msg: "Sorry, an error has occurred",
+          backgroundColor:
+          Colors.grey.shade700.withOpacity(0.7));
       emit(GetWeatherError());
       resetSearchList();
     });
@@ -59,8 +66,9 @@ class MainCubit extends Cubit<MainState> {
   void filterSearchList(String enteredKeyword) {
     if (enteredKeyword.isNotEmpty) {
       searchResult = cities
-          .where((element) =>
-              element.toLowerCase().startsWith(enteredKeyword.toLowerCase()))
+          .where((element) => element
+              .toLowerCase()
+              .startsWith(enteredKeyword.trimRight().toLowerCase()))
           .toList();
       emit(FilterSearchList());
     }
