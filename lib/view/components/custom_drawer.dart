@@ -8,7 +8,7 @@ import 'custom_list_view_builder.dart';
 
 class CustomDrawer extends StatelessWidget {
   TextEditingController controller;
-  CustomDrawer({Key? key,required this.controller}) : super(key: key);
+  CustomDrawer({Key? key, required this.controller}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<MainCubit, MainState>(
@@ -33,37 +33,35 @@ class CustomDrawer extends StatelessWidget {
                     controller: controller,
                     onChanged: (value) {
                       print(value);
-                      cubit.filterSearchList(value);
+                      cubit.filterSearchList(value.toString());
                     },
                   ),
                 ],
               )),
               Expanded(
-                  child: (cubit.searchResult.isEmpty &&
-                          controller.text.isNotEmpty)
-                      ? const Text(
-                          "Not Found",
-                          style: TextStyle(fontSize: 18),
-                        )
-                      : (cubit.searchResult.isEmpty &&
-                              controller.text.isEmpty)
-                          ? CustomListViewBuilder(
-                              itemsList: cities,
-                              onTap: (context, index) {
-                                cubit.resetSearchList();
-                                controller.text ="";
-                                cubit.setCity(cities[index]);
-                                Scaffold.of(context).closeDrawer();
-                              },
-                              textColor: Colors.white)
-                          : CustomListViewBuilder(
-                              itemsList: cubit.searchResult,
-                              onTap: (context, index) {
-                                controller.text ="";
-                                cubit.setCity(cubit.searchResult[index]);
-                                Scaffold.of(context).closeDrawer();
-                              },
-                              textColor: Colors.white))
+                  child:
+                      (cubit.searchResult.isEmpty && controller.text.isNotEmpty)
+                          ? const Text(
+                              "Not Found",
+                              style: TextStyle(fontSize: 18),
+                            )
+                          : (controller.text.isEmpty)
+                              ? CustomListViewBuilder(
+                                  itemsList: cities,
+                                  onTap: (context, index) {
+                                    controller.text = "";
+                                    cubit.setCity(cities[index]);
+                                    Scaffold.of(context).closeDrawer();
+                                  },
+                                  textColor: Colors.white)
+                              : CustomListViewBuilder(
+                                  itemsList: cubit.searchResult,
+                                  onTap: (context, index) {
+                                    controller.text = "";
+                                    cubit.setCity(cubit.searchResult[index]);
+                                    Scaffold.of(context).closeDrawer();
+                                  },
+                                  textColor: Colors.white))
             ],
           ),
         );

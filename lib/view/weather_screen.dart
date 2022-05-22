@@ -4,11 +4,25 @@ import 'package:weather/bloc/main_cubit/main_cubit.dart';
 import 'package:weather/view/components/custom_drawer.dart';
 import 'package:weather/view/components/secondary_data_row.dart';
 
+import 'components/gradient.dart';
 import 'components/primary_data_row.dart';
 
-class WeatherScreen extends StatelessWidget {
+class WeatherScreen extends StatefulWidget {
   WeatherScreen({Key? key}) : super(key: key);
+
+  @override
+  State<WeatherScreen> createState() => _WeatherScreenState();
+}
+
+class _WeatherScreenState extends State<WeatherScreen> {
   TextEditingController cityController = TextEditingController();
+@override
+void initState() {
+   super.initState();
+   MainCubit mainCubit = BlocProvider.of<MainCubit>(context);
+   mainCubit.getWeatherOfCity();
+
+  }
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<MainCubit, MainState>(
@@ -19,15 +33,12 @@ class WeatherScreen extends StatelessWidget {
         var cubit = MainCubit.get(context);
         return Container(
           decoration: BoxDecoration(
-              gradient: const LinearGradient(colors: [
-                Color(0xff8DBAF5),
-                Color(0xff4DADF9),
-              ]),
+              gradient: backgroundGradient,
               image: (state is GetWeatherLoading)
                   ? null
                   : DecorationImage(
                       image: AssetImage(
-                        "assets/images/${cubit.checkWeatherClassification()}.jpg",
+                        "assets/images/${cubit.checkWeatherClassification().name}.jpg",
                       ),
                       fit: BoxFit.cover,
                     )),

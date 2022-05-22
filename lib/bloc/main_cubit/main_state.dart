@@ -9,4 +9,3 @@ class GetWeatherSuccessful extends MainState {}
 class GetWeatherError extends MainState {}
 class SetCity extends MainState {}
 class FilterSearchList extends MainState {}
-class ResetSearchList extends MainState {}

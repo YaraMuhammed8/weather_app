@@ -3,11 +3,18 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 
 const apiKey = "ecd0dd5065b312d2ba1e3ea6a2cdb19d";
-List<String> cities=[];
+
+enum WeatherClassification { snow, cold, sunny, night }
+
+List<String> cities = [];
 void openJsonCities() async {
   String? response = await rootBundle.loadString('assets/cities.json');
   var data = json.decode(response);
-  cities = List.from(data).map((e) => e["name"].toString()).toList().toSet().toList();
+  cities = List.from(data)
+      .map((e) => e["name"].toString())
+      .toList()
+      .toSet()
+      .toList();
 }
 /*List<String> cities = [
   "Alex",
