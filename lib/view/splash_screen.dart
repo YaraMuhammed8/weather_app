@@ -1,12 +1,9 @@
 import 'dart:async';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:weather/view/enter_city_screen.dart';
 import 'package:weather/view/no_internet_screen.dart';
 import 'package:weather/view/weather_screen.dart';
-
 import '../components/navigation_functions.dart';
 import '../services/local/cache_helper.dart';
 import 'components/gradient.dart';
@@ -52,7 +49,10 @@ class _SplashScreenState extends State<SplashScreen> {
                 width: 150,
                 fit: BoxFit.cover,
               ),
-              Text("Weather App",style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),)
+              Text(
+                "Weather App",
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              )
             ],
           ),
         ),

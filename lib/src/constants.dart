@@ -16,23 +16,3 @@ void openJsonCities() async {
       .toSet()
       .toList();
 }
-/*List<String> cities = [
-  "Alex",
-  "Baghdad",
-  "Bali",
-  "Berlin",
-  "Cairo",
-  "Delhi",
-  "Giza",
-  "Istanbul",
-  "London",
-  "Madrid",
-  "Mexico",
-  "Mumbai",
-  "New York",
-  "Paris",
-  "Riyadh",
-  "Shanghai",
-  "São Paulo",
-  "Tokyo"
-];*/

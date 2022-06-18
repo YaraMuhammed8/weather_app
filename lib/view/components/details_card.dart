@@ -5,8 +5,7 @@ class DetailsCard extends StatelessWidget {
   String title;
   Widget icon;
 
-  DetailsCard(
-      {required this.icon, required this.data, required this.title});
+  DetailsCard({required this.icon, required this.data, required this.title});
 
   @override
   build(BuildContext context) {
@@ -21,7 +20,7 @@ class DetailsCard extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            icon,
+            Container(height: 60, width: 60, child: icon),
             Text(
               data,
               style: const TextStyle(fontSize: 25),
